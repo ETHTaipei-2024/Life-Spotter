@@ -1,19 +1,15 @@
 import CardMedia from "@mui/material/CardMedia";
 interface ActionColumnProps {
     picture: File | null;
-    width?: number | string;
-    height?: number | string;
 }
 function ImagePreview(props: ActionColumnProps) {
-    const { picture, width, height } = props;
+    const { picture } = props;
     return (
         picture && (
-            <div className="h-fix">
+            <div className="h-fix ml-auto w-44">
                 <CardMedia
                     component="img"
                     alt="Picture"
-                    height={height}
-                    width={width}
                     image={URL.createObjectURL(picture)}
                 />
             </div>

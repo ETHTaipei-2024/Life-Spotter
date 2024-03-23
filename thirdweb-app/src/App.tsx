@@ -23,7 +23,7 @@ export default function Home() {
                     image="/public/images/ETHTaipei.jpg"
                     sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
                 />
-                <CardInfo metaData={metaData} />
+                <CardInfo picture={picture} metaData={metaData} />
                 <CardActionColumn
                     setMetaData={setMetaData}
                     setPicture={setPicture}
