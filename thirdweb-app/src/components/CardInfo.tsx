@@ -2,8 +2,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { C2paReadResult } from "c2pa";
 import ImagePreview from "./ImagePreview";
-import { encryptLocationA } from "../fhe/location";
-import { useEffect, useState } from "react";
 import { locationType } from "../App";
 interface CardInfoProps {
     location: locationType | null;
@@ -13,24 +11,7 @@ interface CardInfoProps {
 
 function CardInfo(props: CardInfoProps): JSX.Element {
     const { picture, metaData, location } = props;
-    const [enc, setEnc] = useState<string>();
-    const sampleLocation = {
-        latitude: 25.033,
-        longitude: 121.5654,
-        precision: 4,
-    };
-    useEffect(() => {
-        let tmp;
-        (async () => {
-            tmp = await encryptLocationA(
-                sampleLocation.latitude,
-                sampleLocation.longitude,
-                sampleLocation.precision
-            );
-            setEnc(tmp);
-        })();
-        setEnc(tmp);
-    }, []);
+
     return (
         <CardContent className="flex flex-row">
             <div>
@@ -45,7 +26,7 @@ function CardInfo(props: CardInfoProps): JSX.Element {
                     Latitude: {location?.latitude}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Longitude: {location?.longtitude}
+                    Longitude: {location?.longitude}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     FileName: {metaData?.manifestStore?.activeManifest.title}
@@ -56,6 +37,9 @@ function CardInfo(props: CardInfoProps): JSX.Element {
                         metaData?.manifestStore?.activeManifest.signatureInfo
                             ?.time
                     }
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Distance from: {location ? `${location.distance} km` : "N/A"}
                 </Typography>
             </div>
             <ImagePreview picture={picture}></ImagePreview>

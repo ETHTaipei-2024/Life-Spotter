@@ -10,8 +10,10 @@ import { useState } from "react";
 
 export interface locationType {
     location: string;
-    longtitude: number;
+    longitude: number;
     latitude: number;
+    precision?: number;
+    distance?: number;
 }
 export default function Home() {
     const [picture, setPicture] = useState<File | null>(null);
