@@ -35,6 +35,7 @@ export default function Home() {
                     metaData={metaData}
                 />
                 <CardActionColumn
+                    location={location}
                     setLocation={setLocation}
                     setMetaData={setMetaData}
                     setPicture={setPicture}

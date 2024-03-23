@@ -10,12 +10,13 @@ import { useState, Dispatch } from "react";
 import { locationType } from "../App";
 
 interface ActionColumnProps {
+    location: locationType | null;
+    setLocation: Dispatch<React.SetStateAction<locationType | null>>;
     setMetaData: Dispatch<React.SetStateAction<C2paReadResult | null>>;
     setPicture: Dispatch<React.SetStateAction<File | null>>;
-    setLocation: Dispatch<React.SetStateAction<locationType | null>>;
 }
 function CardActionColumn(props: ActionColumnProps) {
-    const { setMetaData, setPicture, setLocation } = props;
+    const { location, setMetaData, setPicture, setLocation } = props;
     const [authenticator, setAuthenticator] = useState(
         new ImageAuthenticator()
     );
