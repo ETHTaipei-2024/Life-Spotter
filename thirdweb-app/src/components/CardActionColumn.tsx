@@ -1,17 +1,17 @@
-import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import InputBox from "./InputBox";
 import ImageAuthenticator from "../c2pa/ImageAuthenticator";
+import { C2paReadResult } from "c2pa";
 import { useState } from "react";
 import { Dispatch } from "react";
 
 interface ActionColumnProps {
-    picture: File | null;
+    setMetaData: Dispatch<React.SetStateAction<C2paReadResult | null>>;
     setPicture: Dispatch<React.SetStateAction<File | null>>;
 }
 function CardActionColumn(props: ActionColumnProps) {
-    const { setPicture } = props;
+    const { setMetaData, setPicture } = props;
     const [authenticator, setAuthenticator] = useState(
         new ImageAuthenticator()
     );
@@ -26,6 +26,8 @@ function CardActionColumn(props: ActionColumnProps) {
                         console.log(res);
                         setPicture(files[0]);
                     }
+                    const metadata = await authenticator.readMetadata(files[0]);
+                    setMetaData(metadata);
                 }}
             ></InputBox>
             <Button size="small">Interaction</Button>

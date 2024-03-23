@@ -1,7 +1,12 @@
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-function CardInfo(): JSX.Element {
+interface CardInfoProps {
+    metaData: any;
+}
+
+function CardInfo(props: CardInfoProps): JSX.Element {
+    const { metaData } = props;
     return (
         <CardContent>
             <Typography gutterBottom variant="h5" component="div">

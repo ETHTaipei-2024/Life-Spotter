@@ -4,24 +4,30 @@ import "./index.css";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardInfo from "./components/CardInfo";
+import { C2paReadResult } from "c2pa";
 import CardActionColumn from "./components/CardActionColumn";
-import ImagePreview from "./components/ImagePreview";
 import { useState } from "react";
 
 export default function Home() {
     const [picture, setPicture] = useState<File | null>(null);
+    const [metaData, setMetaData] = useState<C2paReadResult | null>(null);
+    console.log(metaData);
     return (
-        <div className="flex justify-center pt-40 pb-10">
-            <Card sx={{ maxWidth: 600 }}>
+        // split into two 1/3 and 2/3
+        <div className="flex justify-center pt-40 pb-10 flex-row">
+            <Card className="w-5/12">
                 <CardMedia
                     component="img"
                     alt="ETH Taipei"
-                    height="140"
+                    height="100"
                     image="/public/images/ETHTaipei.jpg"
+                    sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
                 />
-                <CardInfo />
-                <CardActionColumn picture={picture} setPicture={setPicture} />
-                <ImagePreview picture={picture} />
+                <CardInfo metaData={metaData} />
+                <CardActionColumn
+                    setMetaData={setMetaData}
+                    setPicture={setPicture}
+                />
             </Card>
         </div>
     );
