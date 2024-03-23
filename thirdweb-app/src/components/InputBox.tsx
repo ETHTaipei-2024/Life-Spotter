@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "@mui/material/Button";
 import { ChangeEventHandler } from "react";
 
@@ -19,7 +18,7 @@ function InputBox(props: InputBoxProps): JSX.Element {
             />
             <label htmlFor="contained-button-file">
                 <Button component="span" size="small">
-                    UPLOAD PHOTO FOR ANALYSIS
+                    UPLOAD-PHOTO-FOR-ANALYSIS
                 </Button>
             </label>
         </div>
