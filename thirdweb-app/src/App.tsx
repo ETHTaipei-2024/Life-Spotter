@@ -8,8 +8,14 @@ import { C2paReadResult } from "c2pa";
 import CardActionColumn from "./components/CardActionColumn";
 import { useState } from "react";
 
+export interface locationType {
+    location: string;
+    longtitude: number;
+    latitude: number;
+}
 export default function Home() {
     const [picture, setPicture] = useState<File | null>(null);
+    const [location, setLocation] = useState<locationType | null>(null);
     const [metaData, setMetaData] = useState<C2paReadResult | null>(null);
     console.log(metaData);
     return (
@@ -23,8 +29,13 @@ export default function Home() {
                     image="/public/images/ETHTaipei.jpg"
                     sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
                 />
-                <CardInfo picture={picture} metaData={metaData} />
+                <CardInfo
+                    location={location}
+                    picture={picture}
+                    metaData={metaData}
+                />
                 <CardActionColumn
+                    setLocation={setLocation}
                     setMetaData={setMetaData}
                     setPicture={setPicture}
                 />

@@ -3,17 +3,19 @@ import Button from "@mui/material/Button";
 import InputBox from "./InputBox";
 import ImageAuthenticator from "../c2pa/ImageAuthenticator";
 import { C2paReadResult } from "c2pa";
-import {addPlain} from '../fhe/addPlain';
-import {decryptDistance} from '../fhe/location';
-import { useState } from "react";
-import { Dispatch } from "react";
+import { addPlain } from "../fhe/addPlain";
+import { decryptDistance } from "../fhe/location";
+
+import { useState, Dispatch } from "react";
+import { locationType } from "../App";
 
 interface ActionColumnProps {
     setMetaData: Dispatch<React.SetStateAction<C2paReadResult | null>>;
     setPicture: Dispatch<React.SetStateAction<File | null>>;
+    setLocation: Dispatch<React.SetStateAction<locationType | null>>;
 }
 function CardActionColumn(props: ActionColumnProps) {
-    const { setMetaData, setPicture } = props;
+    const { setMetaData, setPicture, setLocation } = props;
     const [authenticator, setAuthenticator] = useState(
         new ImageAuthenticator()
     );
@@ -47,10 +49,20 @@ function CardActionColumn(props: ActionColumnProps) {
                         setPicture(files[0]);
                     }
                     const metadata = await authenticator.readMetadata(files[0]);
-                    setMetaData(metadata);
+                    // create new property to metadata
+                    if (metadata) {
+                        setLocation({
+                            location: "Nangang District, Taipei, Taiwan",
+                            longtitude: 121.5654,
+                            latitude: 25.033,
+                        });
+                        setMetaData(metadata);
+                    }
                 }}
             ></InputBox>
-            <Button size="small" onClick={handleClick}>Interaction</Button>
+            <Button size="small" onClick={handleClick}>
+                Interaction
+            </Button>
         </CardActions>
     );
 }
