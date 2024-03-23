@@ -3,6 +3,8 @@ import Button from "@mui/material/Button";
 import InputBox from "./InputBox";
 import ImageAuthenticator from "../c2pa/ImageAuthenticator";
 import { C2paReadResult } from "c2pa";
+import {addPlain} from '../fhe/addPlain';
+import {decryptDistance} from '../fhe/location';
 import { useState } from "react";
 import { Dispatch } from "react";
 
@@ -15,6 +17,24 @@ function CardActionColumn(props: ActionColumnProps) {
     const [authenticator, setAuthenticator] = useState(
         new ImageAuthenticator()
     );
+
+    const handleClick = async () => {
+        if (navigator.geolocation) {
+            let location: any;
+            navigator.geolocation.getCurrentPosition((position) => {
+                location = {
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude,
+                    precision: 4,
+                };
+            });
+        } else {
+            console.log("geolocation api not support");
+        }
+        // const cipher = await addPlain("<from image>", [0, lat, lat, lon]);
+        // const distance = await decryptDistance(cipher);
+    };
+
     return (
         <CardActions>
             <InputBox
@@ -30,7 +50,7 @@ function CardActionColumn(props: ActionColumnProps) {
                     setMetaData(metadata);
                 }}
             ></InputBox>
-            <Button size="small">Interaction</Button>
+            <Button size="small" onClick={handleClick}>Interaction</Button>
         </CardActions>
     );
 }
