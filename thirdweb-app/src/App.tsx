@@ -1,6 +1,7 @@
 import { ConnectWallet } from "@thirdweb-dev/react";
 import "./styles/Home.css";
 import * as React from "react";
+import "./index.css";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
