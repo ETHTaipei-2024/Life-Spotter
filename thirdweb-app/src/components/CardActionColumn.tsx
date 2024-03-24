@@ -1,15 +1,15 @@
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import InputBox from "./InputBox";
 import ImageAuthenticator from "../c2pa/ImageAuthenticator";
+import { Web3Button } from "@thirdweb-dev/react";
 import { C2paReadResult } from "c2pa";
 import { addPlain } from "../fhe/addPlain";
 import { decryptDistance } from "../fhe/location";
 import { useState, Dispatch } from "react";
 import { locationType } from "../App";
 import useEncryptionLocation from "../hooks/useEncryptionLocation";
-
+import useErc721 from "../hooks/useErc721";
 interface ActionColumnProps {
     location: locationType | null;
     setLocation: Dispatch<React.SetStateAction<locationType | null>>;
@@ -20,6 +20,8 @@ function CardActionColumn(props: ActionColumnProps) {
     const { location, setMetaData, setPicture, setLocation } = props;
     const [authenticator, _] = useState(new ImageAuthenticator());
     const enc = useEncryptionLocation(location);
+    const { contract, contractAddress } = useErc721();
+    const distance = location?.distance ?? 10000000;
 
     // Get current location adn calculate distance on cipher text
     const handleClick = async () => {
@@ -80,6 +82,26 @@ function CardActionColumn(props: ActionColumnProps) {
                     >
                         check enc
                     </Button>
+                )}
+                {contract && distance > 10 && (
+                    <Web3Button
+                        className="!bg-transparent !text-white webbtn "
+                        contractAddress={contractAddress}
+                        action={async () => {
+                            await contract.call("mint", [], {
+                                value: 10000000000000000n,
+                                gasLimit: 1000000,
+                            });
+                        }}
+                        onSuccess={(res) => {
+                            alert(`success ${res}`);
+                        }}
+                        onError={(err) => {
+                            alert(`error ${err.message}`);
+                        }}
+                    >
+                        Mint
+                    </Web3Button>
                 )}
             </CardActions>
         </>
