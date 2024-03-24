@@ -85,13 +85,11 @@ function CardActionColumn(props: ActionColumnProps) {
                 )}
                 {contract && distance > 10 && (
                     <Web3Button
-                        className="!bg-transparent !text-white webbtn "
+                        // className="!bg-transparent !text-white webbtn "
                         contractAddress={contractAddress}
                         action={async () => {
-                            await contract.call("mint", [], {
-                                value: 10000000000000000n,
-                                gasLimit: 1000000,
-                            });
+                            console.log(contractAddress);
+                            await contract.call("mint", [], {});
                         }}
                         onSuccess={(res) => {
                             alert(`success ${res}`);
