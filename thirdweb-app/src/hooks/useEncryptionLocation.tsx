@@ -11,7 +11,7 @@ function useEncryptionLocation(location: locationType | null) {
             let cipherTarget = await encryptLocationA(
                 location.latitude,
                 location.longitude,
-                location.precision || 4
+                location.precision || 1
             );
             setEnc(cipherTarget);
         })();

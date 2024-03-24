@@ -23,7 +23,7 @@ export async function encryptLocationB(lat: number, lon: number, precision: numb
 
 export async function decryptDistance(cipher: string) {
   const iarr = await decryptToPlainText(cipher);
-  const [lat1, lat2, dLat, dLon] = iarr;
+  const [lat1, lat2, dLat, dLon] = iarr.map((e) => e / 10);
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(lat1 * (Math.PI / 180)) *
